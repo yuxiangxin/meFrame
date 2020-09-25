@@ -1,0 +1,2 @@
+include ':app', ':meframe', ':jaudiotagger', ':smoothprogressbar'
+rootProject.name='BaseFrame'
