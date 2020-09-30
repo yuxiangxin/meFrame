@@ -67,7 +67,7 @@ public abstract class BaseAdapter<E> extends RecyclerView.Adapter<BaseHolder<E>>
                 }
             });
         } else if (mOnItemClick != null) {
-            holder.itemView.setOnClickListener(v -> mOnItemClick.onItemClick(v, position));
+            holder.itemView.setOnClickListener(v -> mOnItemClick.onItemClick(v, holder.getAdapterPosition()));
         }
     }
 
