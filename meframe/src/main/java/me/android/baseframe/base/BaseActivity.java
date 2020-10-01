@@ -1,11 +1,13 @@
 package me.android.baseframe.base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.SparseArray;
 
+import java.io.Serializable;
 import java.lang.ref.WeakReference;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,8 +34,13 @@ public abstract class BaseActivity extends AppCompatActivity implements IBase {
         super.onCreate(savedInstanceState);
         mHandler = new WeakHandler(this);
         setContentView(getLayoutId());
+        onViewCreate();
         mBaseHelp = new BaseImpl<>(this);
         init(savedInstanceState);
+    }
+
+    protected void onViewCreate () {
+
     }
 
     protected abstract void init (Bundle savedInstanceState);
@@ -111,6 +118,22 @@ public abstract class BaseActivity extends AppCompatActivity implements IBase {
         if (mReqs == null) {
             mReqs = new SparseArray<>();
         }
+    }
+
+    protected void startActivity (Class targetClz) {
+        Intent intent = new Intent(this, targetClz);
+        startActivity(intent);
+    }
+
+    public static void startActivity (Context context, Class targetClz) {
+        Intent intent = new Intent(context, targetClz);
+        context.startActivity(intent);
+    }
+
+    public static void startActivity (final Context context, Class targetClz, String name, Serializable data) {
+        Intent intent = new Intent(context, targetClz);
+        intent.putExtra(name, data);
+        context.startActivity(intent);
     }
 
     @Override

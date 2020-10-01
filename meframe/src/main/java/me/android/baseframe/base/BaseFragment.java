@@ -36,10 +36,15 @@ public abstract class BaseFragment extends Fragment implements IBase {
             }
         }
         mRootView = inflater.inflate(getLayoutId(), null);
+        onViewCreate(mRootView);
         mBaseHelp = new BaseImpl<>(this);
         mHandler = new WeakHandler(this);
         init(savedInstanceState);
         return mRootView;
+    }
+
+    protected void onViewCreate (View view) {
+
     }
 
     public final <T extends View> T findViewById (@IdRes int id) {
