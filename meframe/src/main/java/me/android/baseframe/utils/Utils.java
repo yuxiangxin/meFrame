@@ -8,6 +8,8 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by yuxiangxin on 20/8/23
@@ -76,6 +78,15 @@ public class Utils {
         }
         return false;
     }
+
+    public static String matcherStr (String text, String regex) {
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(text);
+        if (m.find())
+            return m.group();
+        return null;
+    }
+
 
     /**
      * 关闭IO

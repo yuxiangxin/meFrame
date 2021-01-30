@@ -1,12 +1,17 @@
 package me.android.baseframe.utils;
 
-import android.util.Log;
 
 /**
  * Created by yuxiangxin on 2020/09/2
  * 描述: LOG print
  */
 public class LogUtils {
+
+    private static ILog SLogImpl = new SysLogImpl();
+
+    public static void setSLogImpl (ILog SLogImpl) {
+        LogUtils.SLogImpl = SLogImpl;
+    }
 
     private static boolean DEBUG = true;
     private static boolean IS_SUPERVISE = false;// "nubia".equals(DeviceUtil.getDevicesBrand());
@@ -19,13 +24,14 @@ public class LogUtils {
         IS_SUPERVISE = isSupervise;
     }
 
+
     public static void v (String tag, String msg) {
         if (DEBUG) {
             //改数据error
             if (IS_SUPERVISE) {
-                Log.e(addFilterTag(tag), msg);
+                SLogImpl.e(tag, msg);
             } else {
-                Log.v(addFilterTag(tag), msg);
+                SLogImpl.v(tag, msg);
             }
         }
     }
@@ -44,33 +50,33 @@ public class LogUtils {
         }
         //改数据error
         if (IS_SUPERVISE) {
-            Log.e(addFilterTag(tag), msg);
+            SLogImpl.e(tag, msg);
         } else {
-            Log.v(addFilterTag(tag), msg);
+            SLogImpl.v(tag, msg);
         }
     }
 
     public static void d (String tag, String msg) {
         if (DEBUG) {
-            Log.d(addFilterTag(tag), msg);
+            SLogImpl.d(tag, msg);
         }
     }
 
     public static void i (String tag, String msg) {
         if (DEBUG) {
-            Log.i(addFilterTag(tag), msg);
+            SLogImpl.i(tag, msg);
         }
     }
 
     public static void w (String tag, String msg) {
         if (DEBUG) {
-            Log.w(addFilterTag(tag), msg);
+            SLogImpl.w(tag, msg);
         }
     }
 
     public static void e (String tag, String msg) {
         if (DEBUG) {
-            Log.e(addFilterTag(tag), msg);
+            SLogImpl.e(tag, msg);
         }
     }
 
@@ -85,20 +91,16 @@ public class LogUtils {
     }
 
     public static void e (String tag, String msg, Exception e) {
-        e(tag, msg);
         if (DEBUG) {
+            SLogImpl.e(tag, msg);
             e.printStackTrace();
         }
     }
 
     public static void e (String tag, String msg, Throwable e) {
-        e(tag, msg);
         if (DEBUG) {
+            SLogImpl.e(tag, msg);
             e.printStackTrace();
         }
-    }
-
-    private static String addFilterTag (String tag) {
-        return "FG:" + tag;
     }
 }

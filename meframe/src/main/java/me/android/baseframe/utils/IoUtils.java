@@ -76,7 +76,26 @@ public class IoUtils {
                 list.add(dir);
             }
         }
+    }
 
+    public static void filterFileWithDir (File file, FileFilter fileFilter, ArrayList<File> list) {
+        if (file == null || !file.exists()) {
+            return;
+        }
+        if (fileFilter.accept(file)) {
+            if (file.isDirectory()) {
+                File[] files = file.listFiles();
+                if (files != null) {
+                    for (File eachFile : files) {
+                        filterFileWithDir(eachFile, fileFilter, list);
+                    }
+                }
+            } else {
+                if (fileFilter.accept(file)) {
+                    list.add(file);
+                }
+            }
+        }
     }
 
     public static ArrayList<File> filterFile (File dir, final String... format) {
@@ -354,6 +373,15 @@ public class IoUtils {
                 }
             }
         }
+    }
+
+    public static String getExtension (File file) {
+        final String name = file.getName().toLowerCase();
+        final int i = name.lastIndexOf(".");
+        if (i == -1) {
+            return "";
+        }
+        return name.substring(i + 1);
     }
 
 

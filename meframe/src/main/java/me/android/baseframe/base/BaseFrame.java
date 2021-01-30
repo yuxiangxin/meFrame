@@ -14,9 +14,9 @@ public class BaseFrame {
     private static Context sContext;
     private static BuildFrameConfig sConfig;
 
-    public static void init (Context app, BuildFrameConfig config) {
+    public static void init (Context app, Class BuildConfigClass) {
         sContext = app;
-        sConfig = config;
+        sConfig = new BuildFrameConfig(BuildConfigClass);
     }
 
     public static Context getContext () {
