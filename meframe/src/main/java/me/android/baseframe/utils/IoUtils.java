@@ -191,6 +191,7 @@ public class IoUtils {
         while ((len = in.read()) != -1) {
             out.write(len);
         }
+        out.flush();
     }
 
     public static void streamReadWrite (InputStream in, OutputStream out) throws IOException {
