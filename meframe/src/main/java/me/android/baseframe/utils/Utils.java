@@ -196,6 +196,9 @@ public class Utils {
         return null;
     }
 
+    public static <T> T getDefault(T value, T checkValue, T defValue) {
+        return value == checkValue ? defValue : value;
+    }
 
     public static int formatKeyCode1_9 (int keyCode) {
         switch (keyCode) {
